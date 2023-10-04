@@ -10,4 +10,4 @@ def uppercase(str):
             uppercase = char
         result += uppercase
 
-    print(result)
+    print("{}".format(result))
