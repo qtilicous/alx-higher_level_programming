@@ -3,11 +3,7 @@
 def print_matrix_integer(matrix=[[]]):
 
     for row in matrix:
-        for new_matrix, value in enumerate(row):
-            if new_matrix != len(row) - 1:
-                print("{:d}".format(value), end=" ")
+        for col in row:
+            print("{:d}".format(col), end=" " if col != row[-1] else"")
 
-            else:
-                print("{:d}".format(value))
-
-    print()
+        print()
