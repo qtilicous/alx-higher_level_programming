@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module of Node class
+Module of Square class
 """
 
 
