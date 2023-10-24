@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 """
-    This is the square class
+Module for Square class
 """
-class square:
+
+
+class Square:
+    """
+    This is the Square class
+    """
     pass
