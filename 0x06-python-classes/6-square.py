@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+Module of Square class
+"""
+
 
 class Square:
     """
@@ -11,11 +15,11 @@ class Square:
 
         Args:
             size (int, optional): The size of the square. Defaults to 0.
-            position (tuple, optional): The position of the square. 
+            position (tuple, optional): The position of the square.
             Defaults to (0, 0).
 
         Raises:
-            TypeError: If size is not an integer or if position is not 
+            TypeError: If size is not an integer or if position is not
             a tuple of 2 positive integers.
             ValueError: If size is less than 0.
 
