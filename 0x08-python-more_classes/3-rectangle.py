@@ -109,13 +109,13 @@ class Rectangle:
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join(['#' * self.__width for _ in range(self.__height)]
+        return "\n".join(['#' * self.__width for _ in range(self.__height)])
 
     def __repr__(self):
         """
         Returns a custom representation of the rectangle.
 
         Returns:
-        str: A custom representation of the rectangle.
+            str: A custom representation of the rectangle.
         """
         return "Rectangle({:d}, {:d})".format(self.__width, self.__height)
