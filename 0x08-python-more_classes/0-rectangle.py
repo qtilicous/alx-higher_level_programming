@@ -1,6 +1,6 @@
 #!use/bin/python3
 """
-This module defines a Rectangle
+Module defines a Rectangle
 """
 
 
