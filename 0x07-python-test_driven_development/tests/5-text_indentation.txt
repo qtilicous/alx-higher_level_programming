@@ -1,0 +1,28 @@
+# Test cases for text_indentation function
+>>> from 5-text_indentation import text_indentation
+
+# Test case 1: Regular text with periods, questions marks, and colons
+>>> text_indentation("This is a sentence. Another one? And one more: The end.")
+This is a sentence.
+Another one?
+And one more:
+The end.
+
+# Test case 2: Text with multiple spaces
+>>> text_indentation("  A  B  . C .   D. ")
+A  B.
+C.
+D.
+
+# Test case 3: Text with leading and trailing spaces
+>>> text_indentation("  Hello.  This is a test.  ")
+Hello.
+This is a test.
+
+# Test case 4: Text with only one character
+>>> text_indentation("A")
+A
+
+# Test case 5: Text with no punctuation
+>>> text_indentation("This is a test with no punctuation")
+This is a test with no punctuation
