@@ -8,7 +8,7 @@ from models.rectangle import Rectangle
 
 class Square(Rectangle):
     """
-    The Square class, a subclass of Rectangle.
+    The Square class, inherits from Rectangle.
     """
 
     def __init__(self, size, x=0, y=0, id=None):
@@ -31,6 +31,7 @@ class Square(Rectangle):
     @size.setter
     def size(self, value):
         """Set the size of the square."""
+        self.validate_non_negative_integer("width", value)
         self.width = value
         self.height = value
 
@@ -54,42 +55,30 @@ class Square(Rectangle):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+    def to_dictionary(self):
+        """
+        Return the dictionary representation of the square.
+
+        Returns:
+            dict: A dictionary containing the attributes of the square.
+        """
+        return {
+            "id": self.id,
+            "size": self.size,
+            "x": self.x,
+            "y": self.y,
+        }
+
 
 if __name__ == "__main__":
-    s1 = Square(5)
+    s1 = Square(10, 2, 1)
     print(s1)
-    print(s1.size)
-    s1.size = 10
-    print(s1)
+    s1_dictionary = s1.to_dictionary()
+    print(s1_dictionary)
+    print(type(s1_dictionary))
 
-    try:
-        s1.size = "9"
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
-
-    s2 = Square(2, 2)
+    s2 = Square(1, 1)
     print(s2)
-    print(s2.size)
-    s2.size = 3
+    s2.update(**s1_dictionary)
     print(s2)
-
-    try:
-        s2.size = -3
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
-
-    s3 = Square(3, 1, 3)
-    print(s3)
-    print(s3.size)
-    s3.update(4)
-    print(s3)
-    s3.update(5, 1)
-    print(s3)
-    s3.update(6, 1, 2)
-    print(s3)
-    s3.update(7, 1, 2, 3)
-    print(s3)
-    s3.update(y=1, size=7)
-    print(s3)
-    s3.update(size=7, id=89, y=1)
-    print(s3)
+    print(s1 == s2)
