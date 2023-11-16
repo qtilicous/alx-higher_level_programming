@@ -88,26 +88,81 @@ class Rectangle(Base):
         if value < 0:
             raise ValueError("{} must be >= 0".format(attribute))
 
+    def area(self):
+        """Calculate and return the area of the rectangle."""
+        return self.__width * self.__height
+
+    def display(self):
+        """Print the rectangle using '#' characters."""
+        for _ in range(self.__y):
+            print()
+        for _ in range(self.__height):
+            print(" " * self.__x + "#" * self.__width)
+
+    def __str__(self):
+        """Return a string representation of the rectangle."""
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.__x, self.__y, self.__width, self.__height
+        )
+
+    def update(self, *args, **kwargs):
+        """
+        Update the attributes of the rectangle.
+
+        Args:
+            *args: A variable number of non-keyword arguments.
+            **kwargs: A variable number of keyword arguments.
+        """
+        attributes = ["id", "width", "height", "x", "y"]
+        for i, value in enumerate(args):
+            setattr(self, attributes[i], value)
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
 
 if __name__ == "__main__":
-    try:
-        Rectangle(10, "2")
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    r1 = Rectangle(3, 2)
+    print(r1.area())
 
-    try:
-        r = Rectangle(10, 2)
-        r.width = -10
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    r2 = Rectangle(2, 10)
+    print(r2.area())
 
-    try:
-        r = Rectangle(10, 2)
-        r.x = {}
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    r3 = Rectangle(8, 7, 0, 0, 12)
+    print(r3.area())
 
-    try:
-        Rectangle(10, 2, 3, -1)
-    except Exception as e:
-        print("[{}] {}".format(e.__class__.__name__, e))
+    r4 = Rectangle(4, 6)
+    r4.display()
+
+    print("---")
+
+    r5 = Rectangle(2, 2)
+    r5.display()
+
+    r6 = Rectangle(4, 6, 2, 1, 12)
+    print(r6)
+
+    r7 = Rectangle(5, 5, 1)
+    print(r7)
+
+    r8 = Rectangle(2, 3, 2, 2)
+    r8.display()
+
+    print("---")
+
+    r9 = Rectangle(3, 2, 1, 0)
+    r9.display()
+
+    r10 = Rectangle(10, 10, 10, 10)
+    print(r10)
+
+    r10.update(height=1)
+    print(r10)
+
+    r10.update(width=1, x=2)
+    print(r10)
+
+    r10.update(y=1, width=2, x=3, id=89)
+    print(r10)
+
+    r10.update(x=1, height=2, y=3, width=4)
+    print(r10)
