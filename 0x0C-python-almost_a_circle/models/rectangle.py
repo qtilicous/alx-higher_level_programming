@@ -10,8 +10,10 @@ class Rectangle(Base):
     """
     The Rectangle class, a subclass of Base.
     """
+
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Initialize the Rectangle instance.
+        """
+        Initialize the Rectangle instance.
 
         Args:
             width (int): The width of the rectangle.
@@ -19,7 +21,6 @@ class Rectangle(Base):
             x (int): The x-coordinate of the rectangle (default is 0).
             y (int): The y-coordinate of the rectangle (default is 0).
             id (int): The id of the rectangle (default is None).
-
         """
         super().__init__(id)
         self.width = width
@@ -35,10 +36,7 @@ class Rectangle(Base):
     @width.setter
     def width(self, value):
         """Set the width of the rectangle."""
-        if not isinstance(value, int):
-            raise TypeError("width must be an integer")
-        if value <= 0:
-            raise ValueError("width must be > 0")
+        self.validate_non_negative_integer("width", value)
         self.__width = value
 
     @property
@@ -49,10 +47,7 @@ class Rectangle(Base):
     @height.setter
     def height(self, value):
         """Set the height of the rectangle."""
-        if not isinstance(value, int):
-            raise TypeError("height must be an integer")
-        if value <= 0:
-            raise ValueError("height must be > 0")
+        self.validate_non_negative_integer("height", value)
         self.__height = value
 
     @property
@@ -63,10 +58,7 @@ class Rectangle(Base):
     @x.setter
     def x(self, value):
         """Set the x-coordinate of the rectangle."""
-        if not isinstance(value, int):
-            raise TypeError("x must be an integer")
-        if value < 0:
-            raise ValueError("x must be >= 0")
+        self.validate_non_negative_integer("x", value)
         self.__x = value
 
     @property
@@ -77,19 +69,45 @@ class Rectangle(Base):
     @y.setter
     def y(self, value):
         """Set the y-coordinate of the rectangle."""
-        if not isinstance(value, int):
-            raise TypeError("y must be an integer")
-        if value < 0:
-            raise ValueError("y must be >= 0")
+        self.validate_non_negative_integer("y", value)
         self.__y = value
+
+    def validate_non_negative_integer(self, attribute, value):
+        """
+        Validate that the value is a non-negative integer.
+
+        Args:
+            attribute (str): The name of the attribute being validated.
+            value: The value to be validated.
+        Raises:
+            TypeError: If the value is not an integer.
+            ValueError: If the value is not greater than or equal to 0.
+        """
+        if not isinstance(value, int):
+            raise TypeError("{} must be an integer".format(attribute))
+        if value < 0:
+            raise ValueError("{} must be >= 0".format(attribute))
 
 
 if __name__ == "__main__":
-    r1 = Rectangle(10, 2)
-    print(r1.id)
+    try:
+        Rectangle(10, "2")
+    except Exception as e:
+        print("[{}] {}".format(e.__class__.__name__, e))
 
-    r2 = Rectangle(2, 10)
-    print(r2.id)
+    try:
+        r = Rectangle(10, 2)
+        r.width = -10
+    except Exception as e:
+        print("[{}] {}".format(e.__class__.__name__, e))
 
-    r3 = Rectangle(10, 2, 0, 0, 12)
-    print(r3.id)
+    try:
+        r = Rectangle(10, 2)
+        r.x = {}
+    except Exception as e:
+        print("[{}] {}".format(e.__class__.__name__, e))
+
+    try:
+        Rectangle(10, 2, 3, -1)
+    except Exception as e:
+        print("[{}] {}".format(e.__class__.__name__, e))
