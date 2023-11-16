@@ -3,12 +3,10 @@
 This module defines the Rectangle class.
 """
 
-from models.base import Base
 
-
-class Rectangle(Base):
+class Rectangle:
     """
-    The Rectangle class, a subclass of Base.
+    The Rectangle class.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -22,11 +20,11 @@ class Rectangle(Base):
             y (int): The y-coordinate of the rectangle (default is 0).
             id (int): The id of the rectangle (default is None).
         """
-        super().__init__(id)
         self.width = width
         self.height = height
         self.x = x
         self.y = y
+        self.id = id
 
     @property
     def width(self):
@@ -72,37 +70,28 @@ class Rectangle(Base):
         self.validate_non_negative_integer("y", value)
         self.__y = value
 
-    def validate_non_negative_integer(self, attribute, value):
-        """
-        Validate that the value is a non-negative integer.
-
-        Args:
-            attribute (str): The name of the attribute being validated.
-            value: The value to be validated.
-        Raises:
-            TypeError: If the value is not an integer.
-            ValueError: If the value is not greater than or equal to 0.
-        """
+    def validate_non_negative_integer(self, name, value):
+        """Validate that a value is a non-negative integer."""
         if not isinstance(value, int):
-            raise TypeError("{} must be an integer".format(attribute))
+            raise TypeError("{} must be an integer".format(name))
         if value < 0:
-            raise ValueError("{} must be >= 0".format(attribute))
+            raise ValueError("{} must be >= 0".format(name))
 
     def area(self):
-        """Calculate and return the area of the rectangle."""
-        return self.__width * self.__height
+        """Return the area of the rectangle."""
+        return self.width * self.height
 
     def display(self):
-        """Print the rectangle using '#' characters."""
-        for _ in range(self.__y):
+        """Display the rectangle using '#' characters."""
+        for _ in range(self.y):
             print()
-        for _ in range(self.__height):
-            print(" " * self.__x + "#" * self.__width)
+        for _ in range(self.height):
+            print(" " * self.x + "#" * self.width)
 
     def __str__(self):
         """Return a string representation of the rectangle."""
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
-            self.id, self.__x, self.__y, self.__width, self.__height
+            self.id, self.x, self.y, self.width, self.height
         )
 
     def update(self, *args, **kwargs):
@@ -119,50 +108,31 @@ class Rectangle(Base):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+    def to_dictionary(self):
+        """
+        Return the dictionary representation of the rectangle.
+
+        Returns:
+            dict: A dictionary containing the attributes of the rectangle.
+        """
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y,
+        }
+
 
 if __name__ == "__main__":
-    r1 = Rectangle(3, 2)
-    print(r1.area())
+    r1 = Rectangle(10, 2, 1, 9)
+    print(r1)
+    r1_dictionary = r1.to_dictionary()
+    print(r1_dictionary)
+    print(type(r1_dictionary))
 
-    r2 = Rectangle(2, 10)
-    print(r2.area())
-
-    r3 = Rectangle(8, 7, 0, 0, 12)
-    print(r3.area())
-
-    r4 = Rectangle(4, 6)
-    r4.display()
-
-    print("---")
-
-    r5 = Rectangle(2, 2)
-    r5.display()
-
-    r6 = Rectangle(4, 6, 2, 1, 12)
-    print(r6)
-
-    r7 = Rectangle(5, 5, 1)
-    print(r7)
-
-    r8 = Rectangle(2, 3, 2, 2)
-    r8.display()
-
-    print("---")
-
-    r9 = Rectangle(3, 2, 1, 0)
-    r9.display()
-
-    r10 = Rectangle(10, 10, 10, 10)
-    print(r10)
-
-    r10.update(height=1)
-    print(r10)
-
-    r10.update(width=1, x=2)
-    print(r10)
-
-    r10.update(y=1, width=2, x=3, id=89)
-    print(r10)
-
-    r10.update(x=1, height=2, y=3, width=4)
-    print(r10)
+    r2 = Rectangle(1, 1)
+    print(r2)
+    r2.update(**r1_dictionary)
+    print(r2)
+    print(r1 == r2)
