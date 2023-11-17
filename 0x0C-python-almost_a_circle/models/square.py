@@ -68,3 +68,10 @@ class Square(Rectangle):
             "x": self.x,
             "y": self.y,
         }
+
+    def validate_non_negative_integer(self, name, value):
+        """Validate that a value is a non-negative integer."""
+        if not isinstance(value, int):
+            raise TypeError("{} must be an integer".format(name))
+        if value < 0:
+            raise ValueError("{} must be >= 0".format(name))
