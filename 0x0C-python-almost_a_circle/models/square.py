@@ -11,7 +11,7 @@ class Square(Rectangle):
     The Square class, inherits from Rectangle.
     """
 
-    def __init__(self, size, x=0, y=0, id=None):
+    def __init__(self, size, x=0, y=0, id=1):
         """
         Initialize the Square instance.
 
@@ -19,7 +19,7 @@ class Square(Rectangle):
             size (int): The size of the square.
             x (int): The x-coordinate of the square (default is 0).
             y (int): The y-coordinate of the square (default is 0).
-            id (int): The id of the square (default is None).
+            id (int): The id of the square (default is 1).
         """
         super().__init__(size, size, x, y, id)
 
