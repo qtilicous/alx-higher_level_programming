@@ -6,12 +6,12 @@ This module defines the Rectangle class.
 from models.base import Base
 
 
-class Rectangle:
+class Rectangle(Base):
     """
     The Rectangle class, inherits from Base.
     """
 
-    def __init__(self, width, height, x=0, y=0, id=None):
+    def __init__(self, width, height, x=0, y=0, id=1):
         """
         Initialize the Rectangle instance.
 
@@ -20,8 +20,9 @@ class Rectangle:
             height (int): The height of the rectangle.
             x (int): The x-coordinate of the rectangle (default is 0).
             y (int): The y-coordinate of the rectangle (default is 0).
-            id (int): The id of the rectangle (default is None).
+            id (int): The id of the rectangle (default is 1).
         """
+        super().__init__(id)
         self.width = width
         self.height = height
         self.x = x
