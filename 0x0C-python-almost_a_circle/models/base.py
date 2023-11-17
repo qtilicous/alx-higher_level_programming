@@ -42,22 +42,13 @@ class Base:
         return json.dumps(list_dictionaries)
 
     @classmethod
-    def save_to_file(cls, list_objs):
-        """
-        Save a list of instances to a JSON file.
-
-        Args:
-            list_objs (list): A list of instances.
-        """
+    def save_to_file(cls, list_rectangles):
+        """Save a list of rectangles to a file in JSON format."""
+        if list_rectangles is None:
+            list_rectangles = []
         filename = cls.__name__ + ".json"
-        obj_list = []
-
-        if list_objs is not None:
-            for obj in list_objs:
-                obj_list.append(obj.to_dictionary())
-
-        with open(filename, "w") as file:
-            file.write(cls.to_json_string(obj_list))
+        with open(filename, 'w') as file:
+            json.dump([rect.to_dictionary() for rect in list_rectangles], file)
 
     @staticmethod
     def from_json_string(json_string):
