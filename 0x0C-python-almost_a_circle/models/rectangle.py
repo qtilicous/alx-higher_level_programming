@@ -127,3 +127,9 @@ class Rectangle(Base):
             "x": self.x,
             "y": self.y,
         }
+
+    if __name__ == "__main__":
+        r1 = Rectangle(3, 5, 1)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        print(Base.to_json_string([r1.to_dictionary(), r2.to_dictionary()]))
