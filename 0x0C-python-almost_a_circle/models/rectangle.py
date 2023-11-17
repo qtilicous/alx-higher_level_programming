@@ -22,7 +22,6 @@ class Rectangle:
             y (int): The y-coordinate of the rectangle (default is 0).
             id (int): The id of the rectangle (default is None).
         """
-        super().__init__(id)
         self.width = width
         self.height = height
         self.x = x
@@ -127,9 +126,3 @@ class Rectangle:
             "x": self.x,
             "y": self.y,
         }
-
-    if __name__ == "__main__":
-        r1 = Rectangle(3, 5, 1)
-        r1_dictionary = r1.to_dictionary()
-        r2 = Rectangle.create(**r1_dictionary)
-        print(Base.to_json_string([r1.to_dictionary(), r2.to_dictionary()]))
