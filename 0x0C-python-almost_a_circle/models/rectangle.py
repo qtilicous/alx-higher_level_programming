@@ -9,7 +9,7 @@ class Rectangle:
     The Rectangle class.
     """
 
-    def __init__(self, width, height, x=0, y=0, id=None):
+    def __init__(self, width, height, x=0, y=0, id=1):
         """
         Initialize the Rectangle instance.
 
@@ -18,7 +18,7 @@ class Rectangle:
             height (int): The height of the rectangle.
             x (int): The x-coordinate of the rectangle (default is 0).
             y (int): The y-coordinate of the rectangle (default is 0).
-            id (int): The id of the rectangle (default is None).
+            id (int): The id of the rectangle (default is 1).
         """
         self.width = width
         self.height = height
