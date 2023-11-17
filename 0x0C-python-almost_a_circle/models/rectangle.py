@@ -72,9 +72,11 @@ class Rectangle:
 
     def validate_non_negative_integer(self, name, value):
         """Validate that a value is a non-negative integer."""
-        if not isinstance(value, int):
+        if name == "width" and value <= 0:
+            raise ValueError("{} must be > 0".format(name))
+        elif not isinstance(value, int):
             raise TypeError("{} must be an integer".format(name))
-        if value < 0:
+        elif value < 0:
             raise ValueError("{} must be >= 0".format(name))
 
     def area(self):
@@ -122,17 +124,3 @@ class Rectangle:
             "x": self.x,
             "y": self.y,
         }
-
-
-if __name__ == "__main__":
-    r1 = Rectangle(10, 2, 1, 9)
-    print(r1)
-    r1_dictionary = r1.to_dictionary()
-    print(r1_dictionary)
-    print(type(r1_dictionary))
-
-    r2 = Rectangle(1, 1)
-    print(r2)
-    r2.update(**r1_dictionary)
-    print(r2)
-    print(r1 == r2)
