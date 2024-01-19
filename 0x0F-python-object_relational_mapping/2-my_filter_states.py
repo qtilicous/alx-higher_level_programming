@@ -10,11 +10,13 @@ import MySQLdb
 if __name__ == "__main__":
     # Check if the correct number of arguments is provided
     if len(sys.argv) != 5:
-        print("Usage: {} <username> <password> <database> <state_name>".format(sys.argv[0]))
+        print("Usage: {} <username> <password> <database> <state_name>"
+            .format(sys.argv[0]))
         sys.exit(1)
 
     # Get MySQL credentials and state name from command line arguments
-    username, password, database, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+    username, password = sys.argv[1], sys.argv[2]
+    database, state_name = sys.argv[3], sys.argv[4]
 
     # Connect to MySQL server
     try:
@@ -32,7 +34,6 @@ if __name__ == "__main__":
         # Set the collation to case-insensitive for this query
         cursor.execute("SET collation_connection = 'utf8mb4_general_ci'")
 
-        # Execute the SQL query to get the first state matching the provided name
         query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC LIMIT 1"
         cursor.execute(query, (state_name,))
 
@@ -47,7 +48,6 @@ if __name__ == "__main__":
         print("MySQL Error {}: {}".format(e.args[0], e.args[1]))
 
     finally:
-        # Close the cursor and connection in the finally block to ensure cleanup
         if cursor:
             cursor.close()
         if connection:
