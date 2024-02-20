@@ -3,24 +3,22 @@
 const request = require('request');
 
 const apiUrl = process.argv[2];
-const characterId = '18';
 
-request.get(apiUrl, (error, response, body) => {
+request(apiUrl, function (error, response, body) {
   if (error) {
     console.error(error);
     return;
   }
 
-  if (response.statusCode === 200) {
-    const films = JSON.parse(body).results;
-    let count = 0;
-    films.forEach(film => {
-      if (film.characters.includes(`https://swapi-api.alx-tools.com/api/people/${characterId}/`)) {
-        count++;
-      }
-    });
-    console.log(count);
-  } else {
-    console.error(`Failed to retrieve movie count. Status code: ${response.statusCode}`);
-  }
+  const films = JSON.parse(body).results;
+  const wedgeAntillesID = '18';
+
+  const count = films.reduce((acc, film) => {
+    if (film.characters.includes(apiUrl + wedgeAntillesID + '/')) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+
+  console.log(count);
 });
