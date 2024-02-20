@@ -11,10 +11,10 @@ request(apiUrl, function (error, response, body) {
   }
 
   const films = JSON.parse(body).results;
-  const wedgeAntillesID = '18';
+  const wedgeAntillesURL = 'https://swapi-api.alx-tools.com/api/people/18/';
 
   const count = films.reduce((acc, film) => {
-    if (film.characters.includes(apiUrl + wedgeAntillesID + '/')) {
+    if (film.characters.includes(wedgeAntillesURL)) {
       return acc + 1;
     }
     return acc;
